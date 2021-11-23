@@ -23,7 +23,7 @@ _To connect to the instance you should use the proxy located in the [proxies fol
 _In that way you can bind your gcp instance as if you were running it locally, this by running:_
 
 ```
-$ ./cloud_sql_proxy_<YOUR OS> -instances=$GCP_PROJECT:$REGION:$SQL_INSTANCE=tcp:3306 -credential_file=../files/credentials.json
+$ ./cloud_sql_proxy_<YOUR OS> -instances=$GCP_PROJECT:$REGION:$SQL_INSTANCE=tcp:1433 -credential_file=../files/credentials.json
 ```
 
 _Remember you need a service account, you can see the creation of it in the [main readme](https://github.com/DSC-ESCOM-IPN/Cloud-Computing-Course/blob/main/SQL/README.md)_
