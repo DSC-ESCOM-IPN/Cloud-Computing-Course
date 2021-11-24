@@ -3,11 +3,12 @@ CREATE DATABASE test;
 USE test;
 
 CREATE TABLE profile (
-    LastName varchar(255),
-    FirstName varchar(255)
+    boleta      VARCHAR(10) NOT NULL PRIMARY KEY,
+    LastName    VARCHAR(50),
+    FirstName   VARCHAR(50)
 );
 
 INSERT INTO profile
-VALUES ('Cruz', 'Paul');
+VALUES ('2019630529', 'Cruz', 'Paul');
 
 SELECT * FROM profile;
