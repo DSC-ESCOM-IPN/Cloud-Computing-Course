@@ -4,9 +4,9 @@ from .MySQL_endpoints import api as nsMySQL
 from .PostgreSQL_endpoints import api as nsPosgre
 
 api = Api(
-    title='Cloud Storage API example',
+    title='Cloud SQL API example',
     version='1.0',
-    description='this is a simple API exapmle working with cloud storage',
+    description='this is a simple API exapmle working with cloud SQL',
     prefix='/api'
 )
 
