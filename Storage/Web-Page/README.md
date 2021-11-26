@@ -5,13 +5,13 @@ _To apply this example you need a domain, you can buy one in google domains or a
 _Here we have a web page example taken from internet, so what we need to do is to copy the files to cloud storage, you can use the console or this command if you have the sdk:_
 
 ```
-$ gsutil cp * gs://YOUR-BUCKET-NAME.YOUR-DOMAIN/
+gsutil cp * gs://YOUR-BUCKET-NAME.YOUR-DOMAIN/
 ```
 
 _If you don't have a bucket you can create it by running:_
 
 ```
-$ gsutil mb gs://YOUR-BUCKET-NAME.YOUR-DOMAIN/
+gsutil mb gs://YOUR-BUCKET-NAME.YOUR-DOMAIN/
 ```
 
 _Now you have to go to your domain provider panle and add a CNAME registry pointing to c.storage.googleapis.com_

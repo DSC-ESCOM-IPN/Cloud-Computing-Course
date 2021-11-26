@@ -68,7 +68,7 @@ $rfs-breakpoint-unit-cache: unit($rfs-breakpoint);
   // Add !important suffix if needed
   $rfs-suffix: if($important, " !important", "");
 
-  // If $fs isn't a number (like inherit) or $fs has a unit (not px or rem, like 1.5em) or $ is 0, just print the value
+  // If $fs isn't a number (like inherit) or $fs has a unit (not px or rem, like 1.5em) or is 0, just print the value
   @if not $fs-unit or $fs-unit != "" and $fs-unit != "px" and $fs-unit != "rem" or $fs == 0 {
     font-size: #{$fs}#{$rfs-suffix};
   }
