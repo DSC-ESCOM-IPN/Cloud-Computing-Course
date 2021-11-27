@@ -13,7 +13,7 @@
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( ['jquery', 'datatables.net'], function ( ) {
+		define( ['jquery', 'datatables.net'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
@@ -24,11 +24,11 @@
 				root = window;
 			}
 
-			if ( ! || ! $.fn.dataTable ) {
+			if ( ! $ || ! $.fn.dataTable ) {
 				// Require DataTables, which attaches to jQuery, including
-				// jQuery if needed and have a property so we can access the
+				// jQuery if needed and have a $ property so we can access the
 				// jQuery object that is used
-				= require('datatables.net')(root, $).$;
+				$ = require('datatables.net')(root, $).$;
 			}
 
 			return factory( $, root, root.document );

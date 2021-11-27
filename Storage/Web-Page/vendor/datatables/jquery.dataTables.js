@@ -29,7 +29,7 @@
 
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( ['jquery'], function ( ) {
+		define( ['jquery'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
@@ -42,8 +42,8 @@
 				root = window;
 			}
 
-			if ( ! ) {
-				= typeof window !== 'undefined' ? // jQuery's factory checks for a global window
+			if ( ! $ ) {
+				$ = typeof window !== 'undefined' ? // jQuery's factory checks for a global window
 					require('jquery') :
 					require('jquery')( root );
 			}
@@ -129,20 +129,20 @@
 		 *      oTable.fnFilter('');
 		 *    } );
 		 */
-		this.= function ( sSelector, oOpts )
+		this.$ = function ( sSelector, oOpts )
 		{
 			return this.api(true).$( sSelector, oOpts );
 		};
 		
 		
 		/**
-		 * Almost identical to in operation, but in this case returns the data for the matched
+		 * Almost identical to $ in operation, but in this case returns the data for the matched
 		 * rows - as such, the jQuery selector used should match TR row nodes or TD/TH cell nodes
 		 * rather than any descendants, so the data can be obtained for the row/cell. If matching
 		 * rows are found, the data returned is the original data array/object that was used to
 		 * create the row (or a generated array if from a DOM source).
 		 *
-		 * This method is often useful in-combination with where both functions are given the
+		 * This method is often useful in-combination with $ where both functions are given the
 		 * same parameters and the array indexes will match identically.
 		 *  @param {string|node|jQuery} sSelector jQuery selector or node collection to act on
 		 *  @param {object} [oOpts] Optional parameters for modifying the rows to be included
@@ -6858,7 +6858,7 @@
 			// jQuery selector
 			jq = $(mixed);
 		}
-		else if ( mixed instanceof ) {
+		else if ( mixed instanceof $ ) {
 			// jQuery object (also DataTables instance)
 			jq = mixed;
 		}
@@ -8229,7 +8229,7 @@
 	_api_register( 'row.add()', function ( row ) {
 		// Allow a jQuery object to be passed in - only a single row is added from
 		// it though - the first element in the set
-		if ( row instanceof && row.length ) {
+		if ( row instanceof $ && row.length ) {
 			row = row[0];
 		}
 	
@@ -8252,7 +8252,7 @@
 		var rows = [];
 		var addRow = function ( r, k ) {
 			// Recursion to allow for arrays of jQuery objects
-			if ( Array.isArray( r ) || r instanceof ) {
+			if ( Array.isArray( r ) || r instanceof $ ) {
 				for ( var i=0, ien=r.length ; i<ien ; i++ ) {
 					addRow( r[i], k );
 				}
@@ -15202,7 +15202,7 @@
 	$.fn.dataTable = DataTable;
 
 	// Provide access to the host jQuery object (circular reference)
-	DataTable.= $;
+	DataTable.$ = $;
 
 	// Legacy aliases
 	$.fn.dataTableSettings = DataTable.settings;
