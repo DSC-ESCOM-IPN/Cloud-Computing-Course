@@ -15,6 +15,7 @@
 # [START gae_python38_cloudsql_mysql]
 # [START gae_python3_cloudsql_mysql]
 import os
+import json
 from flask import Flask
 import pymysql
 
@@ -55,6 +56,23 @@ def main():
 
     return str(current_time)
 
+
+@app.route('/profiles')
+def profiles():
+    with cnx.cursor() as cursor:
+        rows = []
+        cursor.execute('SELECT * from profile;')
+        data_rows = cursor.fetchall()
+        print(data_rows)
+        for data_row in data_rows:
+            rows.append({
+                'boleta': data_row[0],
+                'LastName': data_row[1],
+                'FirstName': data_row[2],
+            })
+    cnx.close()
+
+    return json.dumps(rows)
 
 # [END gae_python3_cloudsql_mysql]
 # [END gae_python38_cloudsql_mysql]

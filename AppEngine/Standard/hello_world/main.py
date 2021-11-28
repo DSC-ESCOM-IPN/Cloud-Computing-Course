@@ -27,6 +27,9 @@ def hello():
     """Return a friendly HTTP greeting."""
     return 'Hello World!'
 
+@app.route('/gdsc')
+def hello2():
+    return 'Hello World from the GDSC ESCOM IPN'
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
