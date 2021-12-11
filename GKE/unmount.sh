@@ -44,7 +44,7 @@ echo "Setting dev-namespace as current namespace..."
 kubectl config set-context --current --namespace=dev-namespace
 
 echo "Deleting all the resources..."
-kubectl delete -f .
+kubectl delete -f ./k8s/
 
 if [[ -n $INSTANCE_CREDENTIALS_SECRET ]]; then
     echo "Deleting cloudsql-instance-credentials secret..."

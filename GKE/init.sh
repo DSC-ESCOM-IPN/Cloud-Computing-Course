@@ -34,6 +34,7 @@ echo "Getting GKE credentials for ${GCP_PROJECT}/${GCP_ZONE}/${CLUSTER_NAME}..."
 gcloud container clusters get-credentials ${CLUSTER_NAME} --zone ${GCP_ZONE} --project ${GCP_PROJECT}
 
 API_IMG_ID=$(gcloud container images list-tags us.gcr.io/${GCP_PROJECT}/api | grep latest | awk '{print $1}')
+CLIENT_IMG_ID=$(gcloud container images list-tags us.gcr.io/${GCP_PROJECT}/client | grep latest | awk '{print $1}')
 INSTANCE_CREDENTIALS_SECRET=$(kubectl get secrets | grep cloudsql-instance-credentials | awk '{print $1}')
 DB_CREDENTIALS_SECRET=$(kubectl get secrets | grep cloudsql-db-credentials | awk '{print $1}')
 GCR_SECRET=$(kubectl get secrets | grep gcr-secret | awk '{print $1}')
@@ -44,9 +45,18 @@ set -e
 
 if [[ -z $API_IMG_ID ]]; then
     echo "API image not found, building image..."
-    docker build . -t ${IMG_PREFIX}api:v1.0 -t ${IMG_PREFIX}api:latest
+    docker build ./api/ -t ${IMG_PREFIX}api:v1.0 -t ${IMG_PREFIX}api:latest
     echo "Pulling API image..."
     docker push ${IMG_PREFIX}api --all-tags
+fi
+
+if [[ -z $CLIENT_IMG_ID ]]; then
+    echo "Client image not found, building app..."
+    (cd ./client/ && yarn build && cd -)
+    echo "Building image..."
+    docker build ./client/ -t ${IMG_PREFIX}client:v1.0 -t ${IMG_PREFIX}client:latest
+    echo "Pulling Client image..."
+    docker push ${IMG_PREFIX}client --all-tags
 fi
 
 if [[ -z $NAMESPACE ]]; then
@@ -85,8 +95,12 @@ if [[ -z $GCR_SECRET ]]; then
 fi
 
 echo "Setting up API Deployment and Service..."
-kubectl create -f ./api.deployment.yml --save-config
-kubectl create -f ./api.service.yml --save-config
+kubectl create -f ./k8s/api.deployment.yml --save-config
+kubectl create -f ./k8s/api.service.yml --save-config
+
+echo "Setting up CLIENT Deployment and Service..."
+kubectl create -f ./k8s/client.deployment.yml --save-config
+kubectl create -f ./k8s/client.service.yml --save-config
 
 sleep 5
 echo "Getting all the resources..."
