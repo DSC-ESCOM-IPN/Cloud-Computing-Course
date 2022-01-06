@@ -50,11 +50,10 @@ curl -s -X POST -H "Content-Type: application/json" --data-binary @speech.json "
 This will return something like:
 
 ```
-curl -s -X POST -H "Content-Type: application/json" --data-binary @speech.json "https://speech.googleapis.com/v1/speech:longrunningrecognize?key=${API_KEY}"
-```
 {
   "name": "###################"
 }
+```
 
 You need to copy that number to run the following command:
 
